@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 //token = process.env.TOKEN;
-token = "NTE1MTA2MzQ3Mzk4NzI1NjM0.DtgWzA._Avw2ZnVCJcEZVzIXs-HikZ5Udg";
+token = process.env.TOKEN;
 
 const listeCommandes = "Liste des commandes disponibles : \n -------------- \n 1 - !Liste salons vidéos : liste les salons émettant une notif lorsque une nouvelle vidéo y ait postée \n 2 - !Ajout salon vidéo *nom_salon* : ajoute le salon *nom_salon* à la liste des salons vidéos \n 3 - !Suppression salon vidéo *nom_salon* : supprime le salon *nom_salon* de la liste des salons vidéos";
 listVideoChannel = ["vos-vidéos"];
