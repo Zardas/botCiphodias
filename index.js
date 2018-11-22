@@ -3,6 +3,7 @@ const client = new Discord.Client();
 //token = process.env.TOKEN;
 token = "NTE1MTA2MzQ3Mzk4NzI1NjM0.DtgWzA._Avw2ZnVCJcEZVzIXs-HikZ5Udg";
 
+const listeCommandes = "Liste des commandes disponibles : \n -------------- \n 1 - !Liste salons vidéos : liste les salons émettant une notif lorsque une nouvelle vidéo y ait postée \n 2 - !Ajout salon vidéo *nom_salon* : ajoute le samp, *nom_salon* à la liste des salons vidéos";
 listVideoChannel = ["vos-vidéos"];
 
 /*
@@ -24,6 +25,12 @@ function checkNouvelleVideo(message) {
 	return (message.startsWith('Nouvelle vidéo') || message.startsWith('Nouvelle video') || message.startsWith('nouvelle vidéo') || message.startsWith('Nouvelle vidéo'))
 }
 
+client.on("ready", () => {
+	client.user.setActivity("Tapez !help pour la liste des commandes disponibles");
+}
+);
+
+
 client.on("message", message => {
 
 	//Si le message a bien été envoyé sur un salon textuel
@@ -32,13 +39,13 @@ client.on("message", message => {
 		id_channel = "515108121690243074";
 		taverne = client.channels.get(id_channel);
 
-		res = "@everyone " + message.author + " a upload une nouvelle vidéos dans le salon " + message.channel + ". N'hésitez pas à aller y faire un tour :wink:";
+		res = "Bonjour/bonsoir @everyone \n" + message.author + " a posté une nouvelle vidéos dans le salon " + message.channel + ". N'hésitez pas à aller y faire un tour :wink:";
 		taverne.send(res);
 	}
 
 
 	//Ajout du channel dans la liste des channels autorisés
-	if(message.content.startsWith("Ajout salon vidéo : ")) {
+	if(message.content.startsWith("!Ajout salon vidéo : ")) {
 		listVideoChannel.push(message.content.substr(20));
 	}
 	
@@ -50,6 +57,11 @@ client.on("message", message => {
 			res = res + listVideoChannel[i] + " ; ";
 		}
 		message.reply(res);
+	}
+
+	//!help
+	if(message.content.startsWith("!help") || message.content.startsWith('!aide')) {
+		message.reply(listeCommandes);
 	}
 })
 
