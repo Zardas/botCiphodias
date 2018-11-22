@@ -26,6 +26,7 @@ function checkNouvelleVideo(message) {
 }
 
 client.on("ready", () => {
+	console.log("Bot prêt");
 	client.user.setActivity("Tapez !help pour la liste des commandes disponibles");
 }
 );
