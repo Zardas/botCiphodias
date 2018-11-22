@@ -3,7 +3,7 @@ const client = new Discord.Client();
 //token = process.env.TOKEN;
 token = "NTE1MTA2MzQ3Mzk4NzI1NjM0.DtgWzA._Avw2ZnVCJcEZVzIXs-HikZ5Udg";
 
-const listeCommandes = "Liste des commandes disponibles : \n -------------- \n 1 - !Liste salons vidéos : liste les salons émettant une notif lorsque une nouvelle vidéo y ait postée \n 2 - !Ajout salon vidéo *nom_salon* : ajoute le samp, *nom_salon* à la liste des salons vidéos";
+const listeCommandes = "Liste des commandes disponibles : \n -------------- \n 1 - !Liste salons vidéos : liste les salons émettant une notif lorsque une nouvelle vidéo y ait postée \n 2 - !Ajout salon vidéo *nom_salon* : ajoute le salon *nom_salon* à la liste des salons vidéos \n 3 - !Suppression salon vidéo *nom_salon* : supprime le salon *nom_salon* de la liste des salons vidéos";
 listVideoChannel = ["vos-vidéos"];
 
 /*
@@ -36,7 +36,7 @@ client.on("message", message => {
 	//Si le message a bien été envoyé sur un salon textuel
 	if(checkChannel(message.channel.name) && checkNouvelleVideo(message.content)) {
 		//Si le message commence bien par "Nouvelle vidéos :"
-		id_channel = "515108121690243074";
+		id_channel = "511883927544266772";
 		taverne = client.channels.get(id_channel);
 
 		res = "Bonjour/bonsoir @everyone \n" + message.author + " a posté une nouvelle vidéos dans le salon " + message.channel + ". N'hésitez pas à aller y faire un tour :wink:";
@@ -46,9 +46,32 @@ client.on("message", message => {
 
 	//Ajout du channel dans la liste des channels autorisés
 	if(message.content.startsWith("!Ajout salon vidéo : ")) {
-		listVideoChannel.push(message.content.substr(20));
+		toAdd = message.content.substr(21);
+		listVideoChannel.push(toAdd);
+		message.reply("Le salon " + toAdd + " a été ajouté");
 	}
 	
+	//Suppression du channel dans la liste des channels autorisés
+	if(message.content.startsWith("!Suppression salon vidéo : ")) {
+		toDelete = message.content.substr(27);
+
+		if(checkChannel(toDelete)) {
+			i = 0;
+			while(i < listVideoChannel.length && listVideoChannel[i] != toDelete) {
+				i++;
+			}
+			while(i < listVideoChannel.length) {
+				listVideoChannel[i] = listVideoChannel[i+1];
+				i++;
+			}
+			listVideoChannel.length = listVideoChannel.length-1;
+			message.reply("Le salon " + toDelete + " a été supprimé");
+		} else {
+			message.reply("Le salon " + toDelete + " n'a jamais été ajouté");
+		}
+
+	}
+
 	//Affichage des channels autorisés
 	if(message.content.startsWith("!Liste salons vidéos")) {
 		res = "";
