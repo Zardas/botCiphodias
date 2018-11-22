@@ -1,0 +1,22 @@
+{
+  "name": "botciphodias",
+  "version": "1.0.0",
+  "description": "Simple discord bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zardas/botCiphodias.git"
+  },
+  "author": "zardas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zardas/botCiphodias/issues"
+  },
+  "homepage": "https://github.com/Zardas/botCiphodias#readme",
+  "dependencies": {
+    "discord.js": "^11.4.2"
+  }
+}
